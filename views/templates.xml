@@ -31,8 +31,8 @@
               <span t-if="product.is_product_variant" t-field="product.display_name" />
               <span
                 t-else="" t-field="product.name" style="font-size:9px !important" />
-              <!-- <span class="d-none">............</span> -->
-              &nbsp;&nbsp;&nbsp; <span class="text-end" style="font-size:12px !important">
+              <span style="visibility: hidden;">..............</span>
+              <span class="text-end" style="font-size:12px !important">
                 <strong class=""
                   t-out="pricelist._get_product_price(product, 1, pricelist.currency_id or product.currency_id)"
                   t-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id or product.currency_id, 'label_price': True}" />
