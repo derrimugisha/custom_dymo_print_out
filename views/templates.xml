@@ -4,24 +4,24 @@
       <xpath expr="//div" position="replace">
         <style>
           o_label_dymo {
-          font-size:90%;
-          width: 57mm;
-          height: 33mm;
+          font-size:90% !important;
+          width: 57mm !important;
+          height: 34mm !important;
           }
           n-hd:12px;
         </style>
         <div class="o_label_sheet o_label_dymo" t-att-style="padding_page">
           <div class="o_label_full" t-att-style="table_style">
-            <div class="text-center n-hd">
+            <!-- <div class="text-center n-hd">
               Numero uno
-            </div>
+            </div> -->
             <div class="text-start o_label_small_barcode">
               <t t-if="barcode">
                 <!-- `quiet=0` to remove the left and right margins on the barcode -->
                 <div t-out="barcode" style="padding:0"
                   t-options="{'widget': 'barcode', 'quiet': 0, 'symbology': 'auto', 'img_style': barcode_size}" />
                 <div class="o_label_name w-100"
-                  style="height:1.7em;background-color: transparent;">
+                  style="height:1.6em;background-color: transparent;">
                   <span t-out="barcode" />
                 </div>
               </t>
@@ -30,9 +30,9 @@
               style="line-height: 100%;background-color: transparent;padding-top: 1px;">
               <span t-if="product.is_product_variant" t-field="product.display_name" />
               <span
-                t-else="" t-field="product.name" style="font-size:9px !important" />
+                t-else="" t-field="product.name" style="font-size:10px !important" />
               <span style="visibility: hidden;">..............</span>
-              <span class="text-end" style="font-size:12px !important">
+              <span class="text-end" style="font-size:13px !important">
                 <strong class=""
                   t-out="pricelist._get_product_price(product, 1, pricelist.currency_id or product.currency_id)"
                   t-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id or product.currency_id, 'label_price': True}" />
