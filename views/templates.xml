@@ -12,8 +12,8 @@
         </style>
         <div class="o_label_sheet o_label_dymo" t-att-style="padding_page">
           <div class="o_label_full" t-att-style="table_style">
-            <div class="text-center n-hd">
-              Numero uno
+            <div class="text-center fw-bolder n-hd">
+              Numero Uno
             </div>
             <div class="text-center o_label_small_barcode">
               <t t-if="barcode">
