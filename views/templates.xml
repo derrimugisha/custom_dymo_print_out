@@ -15,7 +15,7 @@
             <div class="text-center n-hd">
               Numero uno
             </div>
-            <div class="text-start o_label_small_barcode">
+            <div class="text-center o_label_small_barcode">
               <t t-if="barcode">
                 <!-- `quiet=0` to remove the left and right margins on the barcode -->
                 <div t-out="barcode" style="padding:0"
@@ -26,7 +26,7 @@
                 </div>
               </t>
             </div>
-            <div class="o_label_name"
+            <div class="o_label_name text-center"
               style="line-height: 100%;background-color: transparent;padding-top: 1px;">
               <span t-if="product.is_product_variant" t-field="product.display_name" />
               <span
