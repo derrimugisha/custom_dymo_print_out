@@ -12,10 +12,10 @@
         </style>
         <div class="o_label_sheet o_label_dymo" t-att-style="padding_page">
           <div class="o_label_full" t-att-style="table_style">
+            <div class="text-center n-hd">
+              Numero Uno
+            </div>
             <div class="text-start o_label_small_barcode">
-              <div class="text-center n-hd">
-                Numero Uno
-              </div>
               <t t-if="barcode">
                 <!-- `quiet=0` to remove the left and right margins on the barcode -->
                 <div t-out="barcode" style="padding:0"
