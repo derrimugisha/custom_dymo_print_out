@@ -2,9 +2,19 @@
   <data>
     <template id="custom_dymo_print_out.dymo_print" inherit_id="product.report_simple_label_dymo">
       <xpath expr="//div" position="replace">
+        <style>
+          o_label_dymo {
+          font-size:90%;
+          width: 57mm;
+          height: 32mm;
+          }
+        </style>
         <div class="o_label_sheet o_label_dymo" t-att-style="padding_page">
           <div class="o_label_full" t-att-style="table_style">
             <div class="text-start o_label_small_barcode">
+              <div class="text-center">
+                Numero Uno
+              </div>
               <t t-if="barcode">
                 <!-- `quiet=0` to remove the left and right margins on the barcode -->
                 <div t-out="barcode" style="padding:0"
@@ -19,7 +29,8 @@
               <div>
                 <span t-if="product.is_product_variant" t-field="product.display_name" />
                 <span
-                  t-else="" t-field="product.name" />/// </div>
+                  t-else="" t-field="product.name" />
+              </div>
               <!-- <div>
                 <span class="text-nowrap" t-field="product.default_code" />
                 <span class="text-nowrap fw-bold text-end o_label_price_small"
