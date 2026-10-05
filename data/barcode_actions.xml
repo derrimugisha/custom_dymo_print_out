@@ -1,0 +1,12 @@
+<odoo>
+  <data>
+    <record id="action_generate_missing_variant_barcodes" model="ir.actions.server">
+      <field name="name">Generate Missing Barcodes</field>
+      <field name="model_id" ref="product.model_product_product" />
+      <field name="binding_model_id" ref="product.model_product_product" />
+      <field name="binding_view_types">list</field>
+      <field name="state">code</field>
+      <field name="code">action = records.action_generate_missing_barcodes()</field>
+    </record>
+  </data>
+</odoo>
