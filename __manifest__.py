@@ -18,10 +18,12 @@ Long description of module's purpose
     'version': '19.0.1.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','product'],
+    'depends': ['base', 'product'],
 
     # always loaded
     'data': [
+        'data/barcode_sequence.xml',
+        'data/barcode_actions.xml',
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
@@ -31,4 +33,3 @@ Long description of module's purpose
         'demo/demo.xml',
     ],
 }
-

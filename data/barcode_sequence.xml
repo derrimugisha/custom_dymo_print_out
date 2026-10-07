@@ -1,0 +1,11 @@
+<odoo>
+  <data noupdate="1">
+    <record id="seq_product_variant_barcode" model="ir.sequence">
+      <field name="name">Product Variant Barcode</field>
+      <field name="code">custom_dymo_print_out.product_variant_barcode</field>
+      <field name="prefix"></field>
+      <field name="padding">12</field>
+      <field name="company_id" eval="False" />
+    </record>
+  </data>
+</odoo>
