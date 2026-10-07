@@ -34,11 +34,7 @@
               <span style="visibility: hidden;">..............</span>
               <span class="text-end" style="font-size:13px !important">
                 <strong class=""
-<<<<<<< HEAD
                   t-out="pricelist._get_product_price(product, 1, currency=pricelist.currency_id or product.currency_id)"
-=======
-                  t-out="pricelist._get_product_price(product, 1)"
->>>>>>> 7169adcbf1192e3f1674c1549b425d9b50058bbb
                   t-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id or product.currency_id, 'label_price': True}" />
               </span>
             </div>
