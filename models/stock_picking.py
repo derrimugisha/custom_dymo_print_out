@@ -15,7 +15,7 @@ class StockPicking(models.Model):
     )
     state = fields.Selection(
         selection_add=[("sent", "Sent / In Transit")],
-        ondelete={"sent": "set default"},
+        ondelete={"sent": "set draft"},
     )
 
     # Computed per-user field: tells the view and barcode app whether the
