@@ -58,3 +58,21 @@ class ProductProduct(models.Model):
         for product in self.filtered(lambda record: not record.barcode):
             product.barcode = product._next_variant_barcode()
         return True
+
+
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Keep a barcode given on the product itself (form, import).
+
+        The variant is created first and gets an automatic barcode; Odoo then
+        only copies the template's barcode down when the variant has none, so
+        the one that was typed or imported would be dropped.
+        """
+        templates = super().create(vals_list)
+        for template, vals in zip(templates, vals_list):
+            if vals.get("barcode") and template.barcode != vals["barcode"]:
+                template.barcode = vals["barcode"]
+        return templates
