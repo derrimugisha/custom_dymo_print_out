@@ -45,6 +45,19 @@ class ProductTemplate(models.Model):
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
+    @api.depends("product_template_attribute_value_ids")
+    def _compute_display_name(self):
+        super()._compute_display_name()
+        for product in self:
+            name = product.display_name
+            if name and "(" in name and name.endswith(")"):
+                idx = name.rfind("(")
+                if idx > 0:
+                    base = name[:idx].rstrip()
+                    attrs = name[idx + 1:-1]
+                    clean_attrs = " - ".join(part.strip() for part in attrs.split(","))
+                    product.display_name = f"{base} - {clean_attrs}"
+
     @api.model_create_multi
     def create(self, vals_list):
         vals_list = [vals.copy() for vals in vals_list]
