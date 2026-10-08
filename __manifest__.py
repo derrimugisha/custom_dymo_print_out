@@ -2,33 +2,36 @@
 {
     'name': "Custom Dymo Print Out",
 
-    'summary': "Short (1 phrase/line) summary of the module's purpose",
+    'summary': "Custom barcode generation, variant images, send/validate stock transfers",
 
     'description': """
-Long description of module's purpose
+    - Auto-generates barcodes using product base barcode + 3-digit serial extension
+    - Variant-level independent images
+    - Stock transfer Send → Validate two-step workflow
     """,
 
     'author': "My Company",
     'website': "https://www.yourcompany.com",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Uncategorized',
-    'version': '19.0.1.1.0',
+    'category': 'Inventory',
+    'version': '19.0.1.2.0',
 
-    # any module necessary for this one to work correctly
-    'depends': ['base', 'product'],
+    'depends': ['base', 'product', 'stock', 'stock_barcode'],
 
-    # always loaded
     'data': [
         'data/barcode_sequence.xml',
         'data/barcode_actions.xml',
-        # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'views/stock_picking_views.xml',
     ],
-    # only loaded in demonstration mode
+
+    'assets': {
+        'web.assets_backend': [
+            'custom_dymo_print_out/static/src/barcode_picking_patch.js',
+        ],
+    },
+
     'demo': [
         'demo/demo.xml',
     ],
