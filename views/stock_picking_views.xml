@@ -1,29 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Add "Send" button to the standard stock.picking form view -->
+    <!-- Add "Send" / "Validate" role-separated buttons to stock.picking form view -->
     <record id="view_picking_form_send_button" model="ir.ui.view">
         <field name="name">stock.picking.form.send.button</field>
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
+
+            <!-- Expose computed fields so the view can use them -->
+            <xpath expr="//sheet" position="inside">
+                <field name="is_sent" invisible="1"/>
+                <field name="user_is_stock_manager" invisible="1"/>
+            </xpath>
+
             <xpath expr="//button[@name='button_validate']" position="before">
-                <button name="action_send" type="object" string="Send"
+                <!--
+                    SEND button:
+                    - Visible to operators (user_is_stock_manager = False)
+                    - Only shown when transfer is ready/confirmed and not yet sent
+                -->
+                <button name="action_send"
+                    type="object"
+                    string="Send"
                     class="btn-primary"
-                    invisible="is_sent or state in ('done', 'cancel', 'draft')"
-                    groups="stock.group_stock_user"/>
+                    invisible="user_is_stock_manager or is_sent or state in ('done', 'cancel', 'draft')"/>
             </xpath>
+
             <xpath expr="//button[@name='button_validate']" position="attributes">
-                <attribute name="invisible">state in ('draft', 'cancel', 'sent') or (picking_type_code == 'internal' and not is_sent)</attribute>
+                <!--
+                    VALIDATE button:
+                    - Only visible to managers (user_is_stock_manager = True)
+                    - For internal transfers: only after it has been sent
+                    - For other types (incoming/outgoing): standard behaviour
+                -->
+                <attribute name="invisible">
+                    not user_is_stock_manager or state in ('draft', 'cancel') or (picking_type_code == 'internal' and not is_sent)
+                </attribute>
             </xpath>
-            <!-- Status badge for "Sent" state -->
+
+            <!-- Statusbar to show Sent state -->
             <xpath expr="//field[@name='state']" position="attributes">
                 <attribute name="widget">statusbar</attribute>
                 <attribute name="statusbar_visible">draft,confirmed,assigned,sent,done</attribute>
             </xpath>
-            <!-- Include is_sent as an invisible field so the view knows about it -->
-            <xpath expr="//sheet" position="inside">
-                <field name="is_sent" invisible="1"/>
-            </xpath>
+
         </field>
     </record>
 </odoo>
