@@ -109,3 +109,55 @@ class ProductProduct(models.Model):
         for product in self.filtered(lambda record: not record.barcode or len(record.barcode) <= 3):
             product.barcode = product._next_variant_barcode()
         return True
+
+    # -------------------------------------------------------------------------
+    # Variant Image Handling (Each variant retains its own independent image)
+    # -------------------------------------------------------------------------
+
+    def _set_image_1920(self):
+        """Save image directly to the variant instead of overwriting the template."""
+        for product in self:
+            if len(product.product_tmpl_id.product_variant_ids) == 1:
+                product.product_tmpl_id.image_1920 = product.image_1920
+            product.image_variant_1920 = product.image_1920
+
+    @api.depends("image_variant_1920", "product_tmpl_id.image_1920")
+    def _compute_image_1920(self):
+        for product in self:
+            if len(product.product_tmpl_id.product_variant_ids) > 1:
+                product.image_1920 = product.image_variant_1920
+            else:
+                product.image_1920 = product.image_variant_1920 or product.product_tmpl_id.image_1920
+
+    @api.depends("image_variant_1024", "product_tmpl_id.image_1024")
+    def _compute_image_1024(self):
+        for product in self:
+            if len(product.product_tmpl_id.product_variant_ids) > 1:
+                product.image_1024 = product.image_variant_1024
+            else:
+                product.image_1024 = product.image_variant_1024 or product.product_tmpl_id.image_1024
+
+    @api.depends("image_variant_512", "product_tmpl_id.image_512")
+    def _compute_image_512(self):
+        for product in self:
+            if len(product.product_tmpl_id.product_variant_ids) > 1:
+                product.image_512 = product.image_variant_512
+            else:
+                product.image_512 = product.image_variant_512 or product.product_tmpl_id.image_512
+
+    @api.depends("image_variant_256", "product_tmpl_id.image_256")
+    def _compute_image_256(self):
+        for product in self:
+            if len(product.product_tmpl_id.product_variant_ids) > 1:
+                product.image_256 = product.image_variant_256
+            else:
+                product.image_256 = product.image_variant_256 or product.product_tmpl_id.image_256
+
+    @api.depends("image_variant_128", "product_tmpl_id.image_128")
+    def _compute_image_128(self):
+        for product in self:
+            if len(product.product_tmpl_id.product_variant_ids) > 1:
+                product.image_128 = product.image_variant_128
+            else:
+                product.image_128 = product.image_variant_128 or product.product_tmpl_id.image_128
+
